@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QuickProxy</title>
+    <style>
+        body { text-align: center; font-family: Arial; margin-top: 100px; }
+        input, button { padding: 10px; margin: 10px; }
+    </style>
+</head>
+<body>
+    <h1>WQuickProxy</h1>
+    <p>Enter a URL to visit:</p>
+    <form onsubmit="proxy(event)">
+        <input type="text" id="urlInput" placeholder="https://example.com">
+        <button type="submit">Go</button>
+    </form>
+    <iframe id="proxyFrame" style="width: 90%; height: 600px; margin-top: 20px;"></iframe>
+
+    <script>
+        function proxy(event) {
+            event.preventDefault();
+            let url = document.getElementById('urlInput').value;
+            let proxyURL = 'https://cors-anywhere.herokuapp.com/' + url;
+            document.getElementById('proxyFrame').src = proxyURL;
+        }
+    </script>
+</body>
+</html>
