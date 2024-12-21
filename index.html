@@ -8,12 +8,14 @@
     </style>
 </head>
 <body bgcolor=black>
+    <font color=white>
     <img src=/QuickProxy.ico>
     <h1>QuickProxy</h1>
     <p>Enter a URL to visit:</p>
     <form onsubmit="proxy(event)">
         <input type="text" id="urlInput" placeholder="https://example.com">
         <button type="submit">Go</button>
+        <button type="fullscreen">Fullscreen</button>
     </form>
     <text>content will be loaded here</text>
     <iframe id="proxyFrame" style="width: 90%; height: 600px; margin-top: 20px;"></iframe>
@@ -26,5 +28,6 @@
             document.getElementById('proxyFrame').src = proxyURL;
         }
     </script>
+    </font>
 </body>
 </html>
