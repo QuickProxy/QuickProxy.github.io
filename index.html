@@ -17,7 +17,87 @@
             console.log('fullscreen error: could not find node.js')
         }
     </script>
+    <style>
+        /* From Uiverse.io by SelfMadeSystem */ 
+.vista-button {
+  position: relative;
+  cursor: pointer;
+  padding: 4px 8px;
+  border: 1px solid black;
+  border-radius: 4px;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+  box-shadow:
+    inset 0px 4px 4px -3px #fff0,
+    inset 0px -3px 4px -3px #fff;
+  background: linear-gradient(#ddd, #999 50%, #000 50%);
+  isolation: isolate;
+  transition:
+    0.25s all,
+    0.1s background-position;
+}
+
+.vista-button::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(circle at 50% 150%, #48b9ef, #0000 50%);
+  background-size: 300% 50%;
+  background-position: 50% 100%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: inherit;
+}
+
+.vista-button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(circle at 50% 320%, #48b9ef, #0000 50%);
+  background-size: 300% 50%;
+  background-position: 50% 0%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: inherit;
+}
+
+.vista-button:hover {
+  box-shadow:
+    inset 0px 4px 4px -3px #fff5,
+    inset 0px -3px 4px -3px #fff;
+}
+.vista-button:hover::before,
+.vista-button:hover::after {
+  opacity: 1;
+}
+
+.vista-button:active::before,
+.vista-button:active::after {
+  opacity: 0;
+}
+
+.vista-button:active {
+  box-shadow:
+    inset 0px 4px 4px -3px #000,
+    inset 0px -4px 4px -3px #000c,
+    inset 0px 0px 24px -3px #000a;
+  background-position: 1px 1px;
+}
+
+.vista-button div {
+  transition: 0.1s translate;
+}
+
+.vista-button:active div {
+  translate: 1px 1px;
+}
+
+    </style>
 </head>
+    
+
 <body bgcolor=black>
     <font color=white>
     <img src=/QuickProxy.ico>
@@ -26,8 +106,8 @@
     <p>Enter a URL to visit:</p>
     <form onsubmit="proxy(event)">
         <input type="text" id="urlInput" placeholder="https://example.com">
-        <button onclick=buttonGo() type="submit">Go</button>
-        <button onclick=buttonFullScreen() type="fullscreen">Fullscreen</button>
+        <button class=vista-button onclick=buttonGo() type="submit"><div>Go</div></button>
+        <button class=vista-button onclick=buttonFullScreen() type="fullscreen"><div>Fullscreen</div></button>
     </form>
     <text>content will be loaded here</text>
     <iframe id="proxyFrame" style="width: 90%; height: 600px; margin-top: 20px;"><font color=white></iframe>
