@@ -6,16 +6,26 @@
         body { text-align: center; font-family: Arial; margin-top: 100px; }
         input, button { padding: 10px; margin: 10px; }
     </style>
+    <script>
+        function load() {
+            console.log('loaded main content')
+        }
+        function buttonGo() {
+            console.log('loading IFrame')
+        }
+        function buttonFullScreen() {
+            console.log('fullscreen error: could not find node.js')
+        }
 </head>
-<body bgcolor=black>
+<body bgcolor=black onload=load()>
     <font color=white>
     <img src=/QuickProxy.ico>
     <h1>QuickProxy</h1>
     <p>Enter a URL to visit:</p>
     <form onsubmit="proxy(event)">
         <input type="text" id="urlInput" placeholder="https://example.com">
-        <button type="submit">Go</button>
-        <button type="fullscreen">Fullscreen</button>
+        <button onclick=buttonGo() type="submit">Go</button>
+        <button onclick=buttonFullScreen() type="fullscreen">Fullscreen</button>
     </form>
     <text>content will be loaded here</text>
     <iframe id="proxyFrame" style="width: 90%; height: 600px; margin-top: 20px;"><font color=white></iframe>
