@@ -1,125 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuickProxy</title>
     <style>
         body { text-align: center; font-family: Arial; margin-top: 100px; }
         input, button { padding: 10px; margin: 10px; }
-    </style>
-    <script>
-        function load() {
-            console.log('loaded main content')
+        .vista-button {
+            position: relative;
+            cursor: pointer;
+            padding: 4px 8px;
+            border: 1px solid black;
+            border-radius: 4px;
+            color: #fff;
+            text-shadow: 1px 1px #000;
+            box-shadow:
+                inset 0px 4px 4px -3px #fff0,
+                inset 0px -3px 4px -3px #fff;
+            background: linear-gradient(#ddd, #999 50%, #000 50%);
+            isolation: isolate;
+            transition:
+                0.25s all,
+                0.1s background-position;
         }
-        function buttonGo() {
-            console.log('loading IFrame')
+        /* Styles for the buttons */
+        .vista-button:hover {
+            box-shadow: inset 0px 4px 4px -3px #fff5;
         }
-        function buttonFullScreen() {
-            console.log('fullscreen error: could not find node.js')
+        .vista-button:active {
+            box-shadow: inset 0px 4px 4px -3px #000;
+            background-position: 1px 1px;
         }
-        function disclaimer() {
-            confirm('THIS WEBSITE IS INTENDED FOR EDUCATIONAL USES ONLY. IF THIS WEBSITE IS USED WRONGFULLY, THEN THE CREATOR, MIKE, IS NOT AT FAULT. ANY ISSUES, PLEASE EMAIL ME USING THE LINK. ')
-        }
-    </script> <style> 
-  position: relative;
-  cursor: pointer;
-  padding: 4px 8px;
-  border: 1px solid black;
-  border-radius: 4px;
-  color: #fff;
-  text-shadow: 1px 1px #000;
-  box-shadow:
-    inset 0px 4px 4px -3px #fff0,
-    inset 0px -3px 4px -3px #fff;
-  background: linear-gradient(#ddd, #999 50%, #000 50%);
-  isolation: isolate;
-  transition:
-    0.25s all,
-    0.1s background-position;
-}
-
-.vista-button::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: radial-gradient(circle at 50% 150%, #48b9ef, #0000 50%);
-  background-size: 300% 50%;
-  background-position: 50% 100%;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: inherit;
-}
-
-.vista-button::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: radial-gradient(circle at 50% 320%, #48b9ef, #0000 50%);
-  background-size: 300% 50%;
-  background-position: 50% 0%;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: inherit;
-}
-
-.vista-button:hover {
-  box-shadow:
-    inset 0px 4px 4px -3px #fff5,
-    inset 0px -3px 4px -3px #fff;
-}
-.vista-button:hover::before,
-.vista-button:hover::after {
-  opacity: 1;
-}
-
-.vista-button:active::before,
-.vista-button:active::after {
-  opacity: 0;
-}
-
-.vista-button:active {
-  box-shadow:
-    inset 0px 4px 4px -3px #000,
-    inset 0px -4px 4px -3px #000c,
-    inset 0px 0px 24px -3px #000a;
-  background-position: 1px 1px;
-}
-
-.vista-button div {
-  transition: 0.1s translate;
-}
-
-.vista-button:active div {
-  translate: 1px 1px;
-}
-
     </style>
 </head>
-    
-
-<body bgcolor=black onload=disclaimer()>
-    <font color=white>
-    <img src=/QuickProxy.ico>
+<body bgcolor="black" onload="">
+    <font color="white">
+    <img src="/QuickProxy.ico" alt="QuickProxy Logo">
     <h1>QuickProxy</h1>
-    <text> By Mike </text> <br>
-        <p> A project to create a browser using a proxy server to connect to the internet without any restrictions. <br>
-            this is a project that is made by Mike Carlson, to contact please click <a href=mailto:mcar3101@mpsedu.org>Here.</a></p>
-        <p>Enter a URL to visit:</p>
+    <p>By ThePuffinProgrammer</p>
+    <p>A project to create a browser using a proxy server to connect to the internet without any restrictions. This is a project made by Mike Carlson. To contact, please click <a href="mailto:mcar3101@mpsedu.org">Here</a>.</p>
+    <p>Enter a URL to visit:</p>
+
     <form onsubmit="proxy(event)">
         <input type="text" id="urlInput" placeholder="https://example.com">
-        <button class=vista-button onclick=buttonGo() type="submit"><div>Go</div></button>
-        <button class=vista-button onclick=buttonFullScreen() type="fullscreen"><div>Fullscreen</div></button>
+        <button class="vista-button" type="submit"><div>Go</div></button>
+        <button class="vista-button" onclick="buttonFullScreen()" type="button"><div>Fullscreen</div></button>
     </form>
-    <text>content will be loaded here</text>
-    <iframe id="proxyFrame" style="width: 90%; height: 600px; margin-top: 20px;"><font color=white></iframe>
+
+    <p>Content will be loaded here:</p>
+    <iframe id="proxyFrame" style="width: 90%; height: 600px; margin-top: 20px;"></iframe>
 
     <script>
+        function disclaimer() {
+            confirm('THIS WEBSITE IS INTENDED FOR EDUCATIONAL USES ONLY. IF THIS WEBSITE IS USED WRONGFULLY, THEN THE CREATOR, MIKE, IS NOT AT FAULT. ANY ISSUES, PLEASE EMAIL ME USING THE LINK.');
+        }
+
+        function load() {
+            console.log('loaded main content');
+        }
+
+        function buttonGo() {
+            console.log('loading IFrame');
+        }
+
+        function buttonFullScreen() {
+            console.log('fullscreen error: could not find node.js');
+        }
+
+        // Proxy function using fetch to handle CORS headers
         function proxy(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent form submission
             let url = document.getElementById('urlInput').value;
             let proxyURL = 'https://cors-anywhere.herokuapp.com/' + url;
-            document.getElementById('proxyFrame').src = proxyURL;
+
+            fetch(proxyURL, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest', // Adding this header
+                    'Origin': window.location.origin // This is the current website origin
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Load the proxied content into the iframe
+                document.getElementById('proxyFrame').srcdoc = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
     </script>
     </font>
