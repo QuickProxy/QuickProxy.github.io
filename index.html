@@ -72,7 +72,7 @@
         function proxy(event) {
             event.preventDefault(); // Prevent form submission
             let url = document.getElementById('urlInput').value;
-            let proxyURL = 'https://cors-anywhere.herokuapp.com/' + url;
+            let proxyURL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
 
             fetch(proxyURL, {
                 method: 'GET',
